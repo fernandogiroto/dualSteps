@@ -1,0 +1,19 @@
+.page-intro {
+    margin-top: -6rem;
+}
+
+section {
+    padding: 25px 0px;
+}
+
+.call-action {
+    background-size: cover;
+    background-image: url('https://img.lemde.fr/2023/02/14/91/0/3641/1820/1440/720/60/0/b89e425_1676389697347-nationalitei-portugaise-juifs-def.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 8px;
+}
+
+.text-justify {
+    text-align: justify;
+}

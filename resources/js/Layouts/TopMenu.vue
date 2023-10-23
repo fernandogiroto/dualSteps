@@ -10,40 +10,43 @@
       <ul class="navbar-nav">
         <li class="nav-item" :class="{ 'active': $page.url === '/como-funciona' }">
             <Link :href="route('how-works')" class="nav-link">
-              <span class="nav-link-icon d-md-none d-lg-inline-block"> <file-description-icon size="20"/> </span>
               <span class="nav-link-title"> Como Funciona </span>
             </Link>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-              <users-plus-icon size="20"/>
-            </span>
             <span class="nav-link-title">
-              Minha Cidadania
+              Solicitar Documento
             </span>
           </a>
           <div class="dropdown-menu">
             <div class="dropdown-menu-columns">
               <div class="dropdown-menu-column">
-                <a class="dropdown-item" href="./layout-horizontal.html">
-                  <flag iso="pt" class="me-1" /> Portuguesa
+                <a class="dropdown-item" href="#">
+                  <school-icon size="20" class="me-1"/> Visto de Estudante
                 </a>
-                <a class="dropdown-item" href="./layout-boxed.html">
-                  <flag iso="it" class="me-1"/> Italiana
+                <a class="dropdown-item" href="#">
+                  <hammer-icon size="20" class="me-1"/> Visto de Trabalho
                 </a>
-                <a class="dropdown-item" href="./layout-vertical.html">
-                  <flag iso="es" class="me-1"/> Espanhola
+                <a class="dropdown-item" href="#">
+                  <home-check-icon size="20" class="me-1"/> Visto de Residência
                 </a>
+                <a class="dropdown-item" href="#">
+                  <id-icon size="20" class="me-1"/> Retirada de NIF
+                </a>
+                <a class="dropdown-item" href="#">
+                  <file-description-icon size="20" class="me-1"/> Segurança Social
+                </a>
+                <a class="dropdown-item" href="#">
+                  <id-badge-icon size="20" class="me-1"/> Passaporte
+                </a>
+
               </div>
             </div>
           </div>
         </li>
         <li class="nav-item" :class="{ 'active': $page.url === '/noticias' }">
           <Link :href="route('news')" class="nav-link">
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-              <news-icon size="20"/>
-            </span>
             <span class="nav-link-title">
               Notícias
             </span>
@@ -51,7 +54,6 @@
         </li>
         <li class="nav-item" :class="{ 'active': $page.url === '/contato' }">
           <Link :href="route('contact')" class="nav-link">
-            <span class="nav-link-icon d-md-none d-lg-inline-block"> <lifebuoy-icon size="20"/> </span>
             <span class="nav-link-title"> Contato </span>
           </Link>
         </li>

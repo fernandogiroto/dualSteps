@@ -12,7 +12,7 @@
 /* prettier-ignore */
 :root,
 [data-bs-theme=light] {
-  --tblr-blue: #206bc4;
+  --tblr-blue: #00B987;
   --tblr-indigo: #4263eb;
   --tblr-purple: #ae3ec9;
   --tblr-pink: #d6336c;
@@ -35,7 +35,7 @@
   --tblr-gray-700: #3a4859;
   --tblr-gray-800: #182433;
   --tblr-gray-900: #040a11;
-  --tblr-primary: #5570F1;
+  --tblr-primary: #00B987;
   --tblr-secondary: #667382;
   --tblr-success: #2fb344;
   --tblr-info: #4299e1;
@@ -17862,7 +17862,7 @@ fieldset:disabled .btn {
 :host {
   font-size: 16px;
   height: 100%;
-  --tblr-primary: #5570F1;
+  --tblr-primary: #00B987;
   --tblr-primary-rgb: 32, 107, 196;
   --tblr-primary-fg: var(--tblr-light);
   --tblr-primary-darken: #1d60b0;
@@ -20232,9 +20232,7 @@ Navbar vertical
   color: var(--tblr-muted);
 }
 
-.highlight {
-  background-color: #5570F1;
-}
+
 
 
 .page-cover {

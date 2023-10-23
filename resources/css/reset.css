@@ -17,3 +17,58 @@ section {
 .text-justify {
     text-align: justify;
 }
+
+.highlight {
+    background-color: #00B987;
+    color: #ffffff;
+    margin-right: -5px;
+}
+
+.line-height-0 {
+    line-height: 0.9;
+}
+
+.bg-brown {
+    background-color: #918484;
+}
+
+.bg-primary {
+    background-color: #00B886 !important;
+}
+
+.margin-effect-2 {
+    transition: margin 0.2s ease-in-out;
+}
+
+.margin-effect-2:hover {
+    margin-top: -2px;
+}
+
+.decoration-none {
+    text-decoration: none;
+}
+
+.decoration-none:hover {
+    text-decoration: none;
+}
+
+.form-control:focus {
+    color: inherit;
+    background-color: var(--tblr-bg-forms);
+    border-color: #00B886;
+    outline: 0;
+    box-shadow: 0 0 transparent, 0 0 0 0.25rem #00b88642;
+}
+
+
+
+body {
+    background-color: #ffffff;
+}
+
+.lawyer-card-background {
+    background-image: url('@/Assets/Images/lawyers.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}

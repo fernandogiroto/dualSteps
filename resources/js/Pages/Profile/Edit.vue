@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
@@ -14,7 +14,7 @@ defineProps({
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <AppLayout>
         <template #header>
             Profile
         </template>
@@ -36,5 +36,5 @@ defineProps({
             <DeleteUserForm class="max-w-xl" />
           </div>
         </div>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>

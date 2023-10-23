@@ -10,19 +10,11 @@
                 <div class="col-lg-4">
                   <div class="card">
                     <div class="card-body">
-                      <div class="d-flex align-items-center mb-3">
-                        <div class="me-3">
-                          <flag iso="pt" class="me-1" /> 
-                        </div>
-                        <div>
-                          <small class="text-muted">Processo </small>
-                          <h3 class="lh-1">{{props.process.type_of_process.name}}</h3>
-                        </div>
-                      </div>
-                      <div class="text-muted text-justify mb-3">
-                        Obter a dupla cidadania portuguesa é um processo emocionante e gratificante para aqueles que desejam conectar-se às suas raízes ou aproveitar
-                        as oportunidades que esse status oferece. O processo de obtenção da cidadania portuguesa geralmente envolve várias etapas e requer 
-                        paciência e organização.
+                      <label class="form-label required">Processo:</label>
+                      <select class="form-select">
+                        <option>{{props.process.type_of_process.name}}</option>
+                      </select>
+                      <div class="text-muted text-justify mt-3 mb-3">
                         <a class="btn btn-primary my-3" data-bs-toggle="offcanvas" href="#offcanvasEnd" role="button" aria-controls="offcanvasEnd">
                           <clipboard-text-icon size="18" class="me-2"/> Documentos Enviados
                         </a>
@@ -155,24 +147,28 @@
                           <div class="modal modal-blur fade" id="modal-success" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                               <div class="modal-content">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <div class="modal-status bg-success"></div>
-                                <div class="modal-body text-center py-4">
-                                  <checklist-icon size="24" class="icon mb-2 text-green icon-lg"/>
-                                  <h3>Certidão de Nascimento {{ props.process.user.name }} {{ props.process.user.surname }}</h3>
-                                  <div class="mb-3">
-                                    <input type="file" class="form-control">
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <div class="w-100">
-                                    <div class="row">
-                                      <div class="col"><a href="#" class="btn btn-success w-100" data-bs-dismiss="modal">
-                                          Enviar para Análise
-                                        </a></div>
+                                <form @submit.prevent="submit">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  <div class="modal-status bg-success"></div>
+                                  <div class="modal-body text-center py-4">
+                                    <checklist-icon size="24" class="icon mb-2 text-green icon-lg"/>
+                                    <h3>Certidão de Nascimento2 {{ props.process.user.name }} {{ props.process.user.surname }}</h3>
+                                    <div class="mb-3">
+                                      <input type="file" name="file" class="fo  rm-control">
                                     </div>
                                   </div>
-                                </div>
+                                  <div class="modal-footer">
+                                    <div class="w-100">
+                                      <div class="row">
+                                        <div class="col">
+                                          <button class="btn btn-success w-100" data-bs-dismiss="modal">
+                                            Enviar para Análise
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -180,16 +176,6 @@
                           <button class="btn position-relative"> Certidão de Nascimento Paulo Giroto<span class="badge bg-yellow badge-notification badge-pill"><clipboard-icon size="15"/></span></button>
                           <button class="btn position-relative">Formulário A1 <span class="badge bg-yellow badge-notification badge-pill"><clipboard-icon size="15"/></span></button>
                         </div>
-                        <ul class="list-unstyled space-y-1">
-                          <li class="d-flex align-items-center cursor-pointer" data-bs-toggle="offcanvas" href="#lawyer_responsable" aria-controls="offcanvasEnd">
-                            <span class="avatar avatar-sm me-2" style="background-image: url(https://i.pravatar.cc/600)"></span>
-                            <div class="d-flex flex-column">
-                              <span class="lh-1">{{ props.process.lawyer.name }}</span>
-                              <span class="lh-1 text-muted">advogado</span>
-                            </div>
-                            
-                          </li>
-                        </ul>
                       </div>
                     </div>
                   </div>
@@ -209,7 +195,7 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 
@@ -217,4 +203,16 @@ const page = usePage();
 const user = computed(() => page.props.auth.user);
 
 const props = defineProps({process: null})
+
+
+const form = useForm({
+    user: user, 
+    file: null,
+});
+const submit = () => {
+  console.log('ooi2')
+    form.post(route("process.save-document"), {
+        onFinish: () => console.log('foi2'),
+    });
+};
 </script>

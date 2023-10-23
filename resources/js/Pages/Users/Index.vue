@@ -1,7 +1,7 @@
 <template>
   <Head title="Users"/>
 
-  <AuthenticatedLayout>
+  <AppLayout>
   <template #header>
     Users
   </template>
@@ -50,11 +50,11 @@
       </div>
     </div>
   </div>
-  </AuthenticatedLayout>
+  </AppLayout>
 </template>
 
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Head } from '@inertiajs/vue3';
 

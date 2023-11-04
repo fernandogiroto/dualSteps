@@ -152,8 +152,8 @@
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
                                                                 <select class="form-select" v-model="form.process_type">
-                                                                    <option value="visa_student_pt">Visto de Estudante
-                                                                    </option>
+                                                                    <option value="visa_student_pt">Visto de Estudante</option>
+                                                                    <option value="visa_work_pt">Visto de Trabalho</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -619,6 +619,8 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import VueTypewriterEffect from "vue-typewriter-effect";
 import CardIcon from "@/Components/CardIcon.vue";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const form = useForm({
     name: "",
@@ -631,10 +633,15 @@ const form = useForm({
 });
 const submit = () => {
     form.post(route("process"), {
-        onFinish: () => form.reset("password", "password_confirmation"),
         onSuccess: (response) =>{
+            toast("Wow so easy !", {
+        autoClose: 1000,
+      }); 
             console.log(response)
     },onError:(response)=>{
+        toast("error!", {
+        autoClose: 1000,
+      }); 
         console.log(response)
     },
     });

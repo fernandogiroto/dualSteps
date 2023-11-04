@@ -23,11 +23,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'mario_fernandez@dual_steps.com',
         ]);
         DB::table('type_of_processes')->insert([
-            'name' => 'Cidadania Portuguesa',
-            'type' => 'Pai/Mãe para Filho(a)'
+            'name' => 'Student Visa',
+            'type' => 'Portuguese'
         ]);
         DB::table('type_of_processes')->insert([
-            'name' => 'Cidadania Italiana',
+            'name' => 'Work Visa',
             'type' => 'Pai/Mãe para Filho(a)'
         ]);
     }

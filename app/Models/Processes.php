@@ -29,11 +29,6 @@ class Processes extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lawyer()
-    {
-        return $this->belongsTo(Lawyer::class);
-    }
-
     public function typeOfProcess()
     {
         return $this->belongsTo(TypeOfProcess::class);

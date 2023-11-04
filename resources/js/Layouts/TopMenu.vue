@@ -40,7 +40,6 @@
                 <a class="dropdown-item" href="#">
                   <id-badge-icon size="20" class="me-1"/> Passaporte
                 </a>
-
               </div>
             </div>
           </div>
@@ -162,7 +161,11 @@
           </div>
           <div v-else>
             <Link :href="route('login')" class="nav-link-title">
-              <user-circle-icon size="22" class="nav-link-user"/> <span class="text-muted">Login</span>
+              <span class="text-muted">Login</span>
+            </Link>
+            |
+            <Link :href="route('register')" class="nav-link-title">
+              <span class="text-muted">Registro</span>
             </Link>
           </div>
         </div>

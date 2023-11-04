@@ -12,8 +12,9 @@
                     <div class="card-body">
                       <label class="form-label required">Processo:</label>
                       <select class="form-select">
-                        <option>{{props.process.type_of_process.name}}</option>
+                        <option v-for="process in processes" :key="process.id">{{ process.type_of_process.name }}</option>
                       </select>
+                        <!-- <option>{{props.process.type_of_process.name}}</option> -->
                       <div class="text-muted text-justify mt-3 mb-3">
                         <a class="btn btn-primary my-3" data-bs-toggle="offcanvas" href="#offcanvasEnd" role="button" aria-controls="offcanvasEnd">
                           <clipboard-text-icon size="18" class="me-2"/> Documentos Enviados
@@ -44,11 +45,11 @@
                           <ul class="list-unstyled space-y-1">
                             <li>
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                              {{ props.process.lawyer.name }}
+                              <!-- {{ props.process.lawyer.name }} -->
                             </li>
                             <li>
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                              {{ props.process.lawyer.email }}
+                              <!-- {{ props.process.lawyer.email }} -->
                             </li>
                           </ul>
                           
@@ -75,18 +76,18 @@
                       <ul class="list-unstyled space-y-1">
                         <li>
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                          {{ props.process.user.name }}  {{ props.process.user.surname }}
+                          <!-- {{ props.process.user.name }}  {{ props.process.user.surname }} -->
                         </li>
                         <li>
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                          {{ props.process.user.email }}
+                          <!-- {{ props.process.user.email }} -->
                         </li>
                       </ul>
                       <h4>Informações do Processo</h4>
                       <ul class="list-unstyled space-y-1">
                         <li>
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                          {{ props.process.type_of_process.type }} 
+                          {{ props.process}} 
                         </li>
                         <li>
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
@@ -97,18 +98,18 @@
                       <ul class="list-unstyled space-y-1">
                         <li class="d-flex align-items-center cursor-pointer" data-bs-toggle="offcanvas" href="#lawyer_responsable" aria-controls="offcanvasEnd">
                           <span class="avatar avatar-sm me-2" style="background-image: url(https://i.pravatar.cc/600)"></span>
-                          {{ props.process.lawyer.name }}
+                          <!-- {{ props.process.lawyer.name }} -->
                         </li>
                       </ul>
                       <h4>Processo</h4>
                       <ul class="list-unstyled space-y-1">
                         <li>
                           <clock-hour-2-icon size="20"/> Criado em
-                          {{ props.process.created_at.substring(0, 10)  }}
+                          <!-- {{ props.process.created_at.substring(0, 10)  }} -->
                         </li>
                         <li>
                           <clock-check-icon size="20"/> Atualizado em
-                          {{ props.process.updated_at.substring(0, 10)  }}
+                          <!-- {{ props.process.updated_at.substring(0, 10)  }} -->
                         </li>
                       </ul>
                     </div>
@@ -133,8 +134,8 @@
                   <div class="card card-lg">
                     <div class="card-body">
                       <div class="markdown">
-                        <p>Olá <strong>{{ props.process.user.name }} {{ props.process.user.surname }}</strong>, vamos começar o seu processo:</p>
-                        <p>Os primeiros passos será enviar ao advogado responsável pelo seu caso (<strong>{{ props.process.lawyer.name }}</strong>) os documentos listados abaixo. 
+                        <!-- <p>Olá <strong>{{ props.process.user.name }} {{ props.process.user.surname }}</strong>, vamos começar o seu processo:</p> -->
+                        <p>Os primeiros passos será enviar ao advogado responsável pelo seu caso (<strong></strong>) os documentos listados abaixo. 
                         Os documentos serão analisados ficando com o status amarelo e assim que for confirmado a análise passa a cor verde. Após termos todos documentos analisados, 
                         a nova etapa do processo será iniciada.
                         </p>
@@ -152,9 +153,10 @@
                                   <div class="modal-status bg-success"></div>
                                   <div class="modal-body text-center py-4">
                                     <checklist-icon size="24" class="icon mb-2 text-green icon-lg"/>
-                                    <h3>Certidão de Nascimento2 {{ props.process.user.name }} {{ props.process.user.surname }}</h3>
+                                    <!-- <h3>Certidão de Nascimento{{ props.process.user.name }} {{ props.process.user.surname }}</h3> -->
                                     <div class="mb-3">
-                                      <input type="file" name="file" class="fo  rm-control">
+                                      <input type="file" @input="form.file = $event.target.files[0]" class="form-control" ref="avatarInput" />
+
                                     </div>
                                   </div>
                                   <div class="modal-footer">
@@ -172,7 +174,7 @@
                               </div>
                             </div>
                           </div>
-                          <button class="btn position-relative" data-bs-toggle="modal" data-bs-target="#modal-success" >Certidão de Nascimento {{ props.process.user.name }}<span class="badge bg-green badge-notification badge-pill"><checklist-icon size="15"/></span></button>
+                          <button class="btn position-relative" data-bs-toggle="modal" data-bs-target="#modal-success" >Certidão de Nascimento <span class="badge bg-green badge-notification badge-pill"><checklist-icon size="15"/></span></button>
                           <button class="btn position-relative"> Certidão de Nascimento Paulo Giroto<span class="badge bg-yellow badge-notification badge-pill"><clipboard-icon size="15"/></span></button>
                           <button class="btn position-relative">Formulário A1 <span class="badge bg-yellow badge-notification badge-pill"><clipboard-icon size="15"/></span></button>
                         </div>
@@ -202,15 +204,16 @@ import { usePage } from '@inertiajs/vue3'
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
-const props = defineProps({process: null})
+const props = defineProps({processes: null})
 
 
 const form = useForm({
-    user: user, 
     file: null,
 });
 const submit = () => {
-  console.log('ooi2')
+  const formData = new FormData();
+  console.log(form.file.value);
+  formData.append('file', form.file.value);
     form.post(route("process.save-document"), {
         onFinish: () => console.log('foi2'),
     });

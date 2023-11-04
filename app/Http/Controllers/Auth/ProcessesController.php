@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Processes;
+use App\Models\ProcessesVisaStudentPt;
 use App\Models\Lawyer;
 use Illuminate\Support\Facades\Storage;
 use App\Providers\RouteServiceProvider;
@@ -28,8 +29,25 @@ class ProcessesController extends Controller
     public function index(): Response
     {
         $userId = auth()->id();
-        $process = Processes::with('user', 'lawyer', 'typeOfProcess')->where('user_id', $userId)->first();
-        return Inertia::render('Users/Process', ['process' => $process]);
+        $processes = Processes::with('user', 'typeOfProcess')->where('user_id', $userId)->get();
+
+        $activeProcesses = [];
+
+        foreach ($processes as $process) {
+            if ($process->type_of_process_id === 1) {
+
+
+                $processWithLawyer = ProcessesVisaStudentPt::with('lawyer')->where('process_id', $process->id)->first();
+
+                $activeProcesses[] = array_merge($process->toArray(), $processWithLawyer->toArray());
+            }
+        }
+
+        // dd($activeProcesses);
+
+
+
+        return Inertia::render('Users/Process', ['processes' => $activeProcesses]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -42,19 +60,23 @@ class ProcessesController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'surname' => $request->surname,
-            'location' => $request->location,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
         event(new Registered($user));
         Auth::login($user);
 
-        Processes::create([
+        $process = Processes::create([
             'user_id' => $user->id,
-            'lawyer_id' => 1,
             'type_of_process_id' => 1
         ]);
+
+        if ($request->process_type == 'visa_student_pt') {
+            ProcessesVisaStudentPt::create([
+                'process_id' => $process->id,
+                'lawyer_id' => 1
+            ]);
+        }
 
         return redirect(RouteServiceProvider::PROCESS);
     }
@@ -72,7 +94,7 @@ class ProcessesController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $request->file('file')->store('', 'public');
+            $request->file('file')->store('user/' . $user_folder, 'public', 'files');
         }
 
         return redirect(RouteServiceProvider::PROCESS);

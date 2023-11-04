@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('processes', function (Blueprint $table) {
+        Schema::create('processes_visa_student_pt', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('type_of_process_id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('type_of_process_id')
-                ->references('id')
-                ->on('type_of_processes')
-                ->onDelete('cascade');
-
             $table->timestamps();
+            $table->unsignedBigInteger('process_id');
+            $table->unsignedBigInteger('lawyer_id')->default(0);
+
+            $table->foreign('process_id')
+                ->references('id')
+                ->on('processes')
+                ->onDelete('cascade');
+
+            $table->foreign('lawyer_id')
+                ->references('id')
+                ->on('lawyers')
+                ->onDelete('cascade');
         });
     }
 
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('processes');
+        Schema::dropIfExists('processes_visa_student_pt');
     }
 };

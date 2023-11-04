@@ -1,6 +1,10 @@
 <template>
   <TopMenu />
-  <slot name="content"></slot>
+  <div class="page">
+    <div class="page-wrapper">
+      <slot name="content"></slot>
+    </div>
+  </div>
   <Footer />
 </template>
 <script setup>

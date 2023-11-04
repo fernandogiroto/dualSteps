@@ -20,6 +20,9 @@ use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class ProcessesController extends Controller
 {
@@ -50,17 +53,49 @@ class ProcessesController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:' . User::class,
+        //     'password' => 'required',
+        // ]);
+
+
+
+        $validation = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:' . User::class,
             'password' => 'required',
+            'process_type' => 'required',
         ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        event(new Registered($user));
+
+        $user = null;
+        if ($validation->fails()) {
+            $errors = $validation->errors();
+            if ($errors->has('email')) {
+                if ($request->user_another_process) {
+                    $userRegistered = User::where('email', $request->email)->first();
+                    if ($userRegistered && Hash::check($request->password, $userRegistered->password)) {
+                        $user = $userRegistered;
+                    } else {
+                        return redirect()->route('dashboard')->withErrors(['error' => 'Password Incorrect']);
+                    }
+                } else {
+                    $emailError = $errors->first('email');
+                    if (strpos($emailError, 'The email has already been taken') !== false) {
+                        return redirect()->route('dashboard')->withErrors(['error' => 'Email is already registered']);
+                    }
+                }
+            }
+        }
+
+        if ($user === null) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            event(new Registered($user));
+        }
         Auth::login($user);
 
         if ($request->process_type == 'visa_student_pt') {

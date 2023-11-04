@@ -163,10 +163,6 @@
             <Link :href="route('login')" class="nav-link-title">
               <span class="text-muted">Login</span>
             </Link>
-            |
-            <Link :href="route('register')" class="nav-link-title">
-              <span class="text-muted">Registro</span>
-            </Link>
           </div>
         </div>
       </div>

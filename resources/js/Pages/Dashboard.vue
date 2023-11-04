@@ -91,7 +91,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Informações Pessoais</label>
+                                                                <label class="form-label">Informações Pessoais {{form.user_another_process}}</label>
                                                                 <div class="input-icon mb-3">
                                                                     <span class="input-icon-addon">
                                                                         <user-icon size="20"/>
@@ -140,7 +140,7 @@
                                                                         required
                                                                         placeholder="Password"
                                                                     />
-                                                                    <InputError class="mt-2" :message=" form.errors.password"/>
+                                                                    <InputError class="mt-2" :message="form.errors.password"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -148,10 +148,10 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="row">
-                                                        <label class="form-label">Informações de Processo: {{form.process_type}}</label>
+                                                        <label class="form-label">Informações de Processo:</label>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <select class="form-select" v-model="form.process_type">
+                                                                <select class="form-select" v-model="form.process_type" required>
                                                                     <option value="visa_student_pt">Visto de Estudante</option>
                                                                     <option value="visa_work_pt">Visto de Trabalho</option>
                                                                 </select>
@@ -210,7 +210,7 @@
                                             <div class="row row-0">
                                                 <div class="col-3">
                                                     <img
-                                                        src="https://www.avanse.com/blogs/images/2.jpg"
+                                                        src="https://www.frenchentree.com/wp-content/uploads/2021/10/shutterstock_1709201812-2.jpg"
                                                         class="w-100 h-100 object-cover card-img-start"
                                                         alt="Beautiful blonde woman relaxing with a can of coke on a tree stump by the beach"
                                                     />
@@ -609,6 +609,36 @@
                     </section>
                 </div>
             </div>
+
+            <Modal id="modalDifferentProcess">
+                <form @submit.prevent="submitDifferentProcess">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-status bg-success"></div>
+                    <div class="modal-body text-center py-4">
+                        <checklist-icon size="24" class="icon mb-2 text-green icon-lg"/>
+                        <h3>Já possui um processo ativo</h3>
+                        <div class="text-secondary">
+                            Identificamos que você já possui um processo ativo em nosso sistema. Isso é ótimo! 
+                            Se você deseja criar um novo processo bastar confirmar.
+                        </div>
+                      </div>
+                    <div class="modal-footer">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Cancelar
+                                  </a></div>
+                                <div class="col">
+                                <button class="btn btn-success w-100" data-bs-dismiss="modal">
+                                   Iniciar outro processo
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </Modal>
+            <button class="d-none" data-bs-toggle="modal" data-bs-target="#modalDifferentProcess" ref="modalButton"></button>
         </template>
     </AppLayout>
 </template>
@@ -619,8 +649,11 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import VueTypewriterEffect from "vue-typewriter-effect";
 import CardIcon from "@/Components/CardIcon.vue";
+import Modal from "@/Components/Modal.vue";
+import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+
 
 const form = useForm({
     name: "",
@@ -629,21 +662,30 @@ const form = useForm({
     email: "",
     password: "",
     process_type: null,
-    terms: false,
+    user_another_process: false,
 });
+const modalButton = ref(null);
+
+
+const submitDifferentProcess = ()=>{
+    form.user_another_process = true;
+    submit();
+}
+
 const submit = () => {
     form.post(route("process"), {
         onSuccess: (response) =>{
-            toast("Wow so easy !", {
-        autoClose: 1000,
-      }); 
             console.log(response)
-    },onError:(response)=>{
-        toast("error!", {
-        autoClose: 1000,
-      }); 
-        console.log(response)
-    },
+            toast.success('Processo Criado', {autoClose: 3000,}); 
+        },onError:(response)=>{
+            if(response.error != 'Email is already registered'){
+                toast.error(response.error, {autoClose: 3000,});
+            }
+             
+            if (modalButton.value) {
+                modalButton.value.click();
+            }
+        },
     });
 };
 </script>

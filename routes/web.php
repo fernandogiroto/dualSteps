@@ -24,15 +24,14 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+})->name('dashboard');
 
 Route::get('/contato', fn () => Inertia::render('Contact'))->name('contact');
 Route::get('/como-funciona', fn () => Inertia::render('HowWorks'))->name('how-works');
 Route::get('/noticias', fn () => Inertia::render('News'))->name('news');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('process', [ProcessesController::class, 'store'])->name('process');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/meu-processo', [ProcessesController::class, 'index'])->name('my-process');
